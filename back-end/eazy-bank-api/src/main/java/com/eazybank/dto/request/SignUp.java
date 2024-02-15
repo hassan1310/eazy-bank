@@ -1,6 +1,7 @@
 package com.eazybank.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +17,7 @@ public class SignUp {
     private String password;
     @NotBlank(message = "role required")
     private String role;
+    @NotNull(message = "role required")
     private Boolean enabled = true;
 
 

@@ -2,7 +2,6 @@ package com.eazybank.security;
 
 
 import com.eazybank.repository.ClientRepository;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -13,13 +13,14 @@ public class LoginService {
 
     private final ClientRepository clientRepository;
 
-    public Client signUp(SignUp request) {
+    public Client signUp(SignUp request) throws Exception{
 
         var client = new Client();
         client.setName(request.getName());
         client.setEmail(request.getEmail());
         client.setRole(request.getRole());
         client.setPassword(request.getPassword());
+        client.setEnabled(request.getEnabled());
 
         return clientRepository.save(client);
     }

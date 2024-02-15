@@ -1,9 +1,12 @@
 package com.eazybank.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Table(name = "client")
+@Table(name = "clients")
 @Entity
 @Setter
 @Getter
