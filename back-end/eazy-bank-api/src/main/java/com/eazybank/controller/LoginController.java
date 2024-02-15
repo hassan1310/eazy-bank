@@ -27,6 +27,5 @@ public class LoginController {
                     .formatted(request.getName(),e.getMessage()));
         }
 
-
     }
 }

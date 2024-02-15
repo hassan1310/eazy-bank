@@ -5,6 +5,7 @@ import com.eazybank.dto.request.SignUp;
 import com.eazybank.entity.Client;
 import com.eazybank.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 public class LoginService {
 
     private final ClientRepository clientRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public Client signUp(SignUp request) throws Exception{
 
@@ -19,7 +21,7 @@ public class LoginService {
         client.setName(request.getName());
         client.setEmail(request.getEmail());
         client.setRole(request.getRole());
-        client.setPassword(request.getPassword());
+        client.setPassword(passwordEncoder.encode(request.getPassword()));
         client.setEnabled(request.getEnabled());
 
         return clientRepository.save(client);
