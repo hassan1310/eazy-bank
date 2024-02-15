@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @AllArgsConstructor
-public class CustomUserDetails implements UserDetails {
+public class EazyBankUserDetails implements UserDetails {
 
     private final Client client;
 
