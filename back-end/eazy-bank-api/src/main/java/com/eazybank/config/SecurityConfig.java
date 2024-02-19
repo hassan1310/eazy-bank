@@ -40,10 +40,10 @@ public class SecurityConfig {
                 config.setMaxAge(3600L);
                 return config;
             }
-        })).csrf().disable()/*((csrf) -> csrf.csrfTokenRequestHandler(requestHandler).
+        })).csrf((csrf) -> csrf.csrfTokenRequestHandler(requestHandler).
                 ignoringRequestMatchers("/contact", "/signup").
                 csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())).
-                addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)*/.
+                addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class).
                 authorizeHttpRequests((requests) -> requests.
                         requestMatchers("/myAccount", "/myBalance", "/myLoans",
                                 "/myCards", "/user").authenticated().
