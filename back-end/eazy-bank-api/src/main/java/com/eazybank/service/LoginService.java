@@ -2,28 +2,33 @@ package com.eazybank.service;
 
 
 import com.eazybank.dto.request.SignUp;
-import com.eazybank.entity.Client;
-import com.eazybank.repository.ClientRepository;
+import com.eazybank.entity.Customer;
+import com.eazybank.repository.CardsRepository;
+import com.eazybank.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
 public class LoginService {
 
-    private final ClientRepository clientRepository;
+    private final CustomerRepository customerRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public Client signUp(SignUp request) throws Exception{
+    public void signUp(SignUp request) throws Exception {
 
-        var client = new Client();
-        client.setName(request.getName());
-        client.setEmail(request.getEmail());
-        client.setRole(request.getRole());
-        client.setPassword(passwordEncoder.encode(request.getPassword()));
-        client.setEnabled(request.getEnabled());
+        var customer = new Customer();
+        customer.setName(request.getName());
+        customer.setEmail(request.getEmail());
+        customer.setRole(request.getRole());
+        customer.setPwd(passwordEncoder.encode(request.getPassword()));
+        customer.setMobileNumber(request.getMobile());
+        customer.setCreateDate(LocalDate.now().toString());
 
-        return clientRepository.save(client);
+        customerRepository.save(customer);
     }
 }

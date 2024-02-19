@@ -1,8 +1,7 @@
 package com.eazybank.security;
 
-import com.eazybank.repository.ClientRepository;
+import com.eazybank.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,7 +19,7 @@ import java.util.Arrays;
 public class EazyBankAuthenticationProvider implements AuthenticationProvider {
 
     private final PasswordEncoder passwordEncoder;
-    private final ClientRepository clientRepository;
+    private final CustomerRepository customerRepository;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -28,17 +27,17 @@ public class EazyBankAuthenticationProvider implements AuthenticationProvider {
         var userName = authentication.getName();
         var password = authentication.getCredentials().toString();
 
-        var client = clientRepository.findByEmail(userName).orElse(null);
+        var client = customerRepository.findByEmail(userName).orElse(null);
 
         if (client == null) {
-            throw new UsernameNotFoundException("user '%' not found ".formatted(userName));
+            throw new UsernameNotFoundException("user '%s' not found ".formatted(userName));
         }
 
-        if (passwordEncoder.matches(password,client.getPassword())) {
+        if (passwordEncoder.matches(password,client.getPwd())) {
             return new UsernamePasswordAuthenticationToken(userName, password,
                     Arrays.asList(new SimpleGrantedAuthority(client.getRole())));
         } else {
-            throw new BadCredentialsException(" invalid password for user '%'".formatted(userName));
+            throw new BadCredentialsException("invalid password for user '%s' ".formatted(userName));
         }
     }
 

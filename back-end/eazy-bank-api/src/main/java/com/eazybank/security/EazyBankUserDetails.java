@@ -1,6 +1,7 @@
+/*
 package com.eazybank.security;
 
-import com.eazybank.entity.Client;
+import com.eazybank.entity.Customer;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,40 +13,41 @@ import java.util.Collection;
 @AllArgsConstructor
 public class EazyBankUserDetails implements UserDetails {
 
-    private final Client client;
+    private final Customer customer;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority(client.getRole()));
+        return Arrays.asList(new SimpleGrantedAuthority(customer.getRole()));
     }
 
     @Override
     public String getPassword() {
-        return client.getPassword();
+        return customer.getPwd();
     }
 
     @Override
     public String getUsername() {
-        return client.getEmail();
+        return customer.getEmail();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return client.getEnabled();
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return client.getEnabled();
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return client.getEnabled();
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return client.getEnabled();
+        return true;
     }
 }
+*/

@@ -17,8 +17,9 @@ public class SignUp {
     private String password;
     @NotBlank(message = "role required")
     private String role;
-    @NotNull(message = "role required")
-    private Boolean enabled = true;
+    @NotNull(message = "mobile number required")
+    private String mobile ;
+
 
 
 }
