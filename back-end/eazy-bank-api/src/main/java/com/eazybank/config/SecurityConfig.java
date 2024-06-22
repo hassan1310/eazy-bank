@@ -29,7 +29,9 @@ public class SecurityConfig {
         CsrfTokenRequestAttributeHandler requestHandler = new CsrfTokenRequestAttributeHandler();
         requestHandler.setCsrfRequestAttributeName("_csrf");
 
-        http.securityContext((context) -> context.requireExplicitSave(false)).sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)).cors(corsCustomizer -> corsCustomizer.configurationSource(new CorsConfigurationSource() {
+        http.securityContext((context) -> context.requireExplicitSave(false)).
+                sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+                .cors(corsCustomizer -> corsCustomizer.configurationSource(new CorsConfigurationSource() {
             @Override
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                 CorsConfiguration config = new CorsConfiguration();
@@ -45,7 +47,8 @@ public class SecurityConfig {
                 csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())).
                 addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class).
                 authorizeHttpRequests((requests) -> requests.
-                        requestMatchers("/myAccount", "/myBalance", "/myLoans",
+                        requestMatchers("/myAccount").hasAuthority("view-account")
+                        .requestMatchers("/myAccount", "/myBalance", "/myLoans",
                                 "/myCards", "/user").authenticated().
                         requestMatchers("/notices", "/contact", "/signup").
                         permitAll()).formLogin(Customizer.withDefaults()).
