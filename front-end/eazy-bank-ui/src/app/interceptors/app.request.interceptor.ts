@@ -19,10 +19,19 @@ export class XhrInterceptor implements HttpInterceptor {
       httpHeaders = httpHeaders.append('Authorization', 'Basic ' + window.btoa(this.user.email + ':' + this.user.password));
     }
 
+    else {
+      let authorization = sessionStorage.getItem('Authorization');
+      if(authorization){
+        httpHeaders = httpHeaders.append('Authorization', authorization); 
+      }
+    }
+
     let xsrf= window.sessionStorage.getItem('XSRF-TOKEN');
     if(xsrf){
       httpHeaders=httpHeaders.append('X-XSRF-TOKEN',xsrf);
     }
+
+
 
     httpHeaders = httpHeaders.append('X-Requested-With', 'XMLHttpRequest');
     const xhr = req.clone({
